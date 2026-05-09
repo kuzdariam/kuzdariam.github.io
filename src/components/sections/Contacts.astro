@@ -1,0 +1,52 @@
+---
+import { site } from '../../content/site.ts';
+import CtaButton from '../ui/CtaButton.astro';
+
+const c = site.contacts;
+---
+<section id="contacts" class="relative isolate overflow-hidden bg-graphite text-milk">
+  <img
+    src={c.backgroundPhoto}
+    alt={c.backgroundAlt}
+    class="absolute inset-0 -z-10 h-full w-full scale-110 object-cover blur-2xl"
+  />
+  <div class="absolute inset-0 -z-10 bg-graphite/55"></div>
+
+  <div class="mx-auto grid max-w-container grid-cols-1 gap-12 px-6 py-20 md:grid-cols-2 md:px-10 md:py-28">
+    <div>
+      <h2 class="font-display text-4xl font-bold leading-tight text-milk md:text-5xl lg:text-6xl">
+        {c.headline}
+      </h2>
+      <p class="mt-6 max-w-lg font-sans text-base leading-relaxed text-milk/90 md:text-lg">
+        {c.body}
+      </p>
+      <a href={c.consentLink.href} class="mt-6 inline-block font-sans text-sm text-milk/80 underline hover:text-milk">
+        {c.consentLink.label}
+      </a>
+    </div>
+
+    <ul class="flex flex-col items-start gap-4 md:items-end">
+      {c.links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="font-display text-3xl font-bold uppercase tracking-wide text-milk transition-colors hover:text-terracotta md:text-4xl lg:text-5xl"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="mx-auto max-w-container px-6 pb-20 md:px-10">
+    <CtaButton href={c.cta.href} label={c.cta.label} class="w-full md:w-auto" />
+  </div>
+</section>
+
+<footer class="bg-beige">
+  <div class="mx-auto flex max-w-container flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-graphite md:flex-row md:px-10">
+    <span>{c.footer.credit}</span>
+    <a href="#top" class="hover:text-terracotta">↑ {c.footer.backToTopLabel}</a>
+  </div>
+</footer>

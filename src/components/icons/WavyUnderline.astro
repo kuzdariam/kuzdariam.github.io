@@ -1,0 +1,14 @@
+---
+interface Props { children?: any; word: string; }
+const { word } = Astro.props;
+---
+<span class="wavy-underline whitespace-nowrap">{word}</span>
+
+<style>
+  .wavy-underline {
+    text-decoration: underline wavy #B35A4A;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+    text-decoration-skip-ink: none;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../../content/site.ts';
+import PillButton from '../ui/PillButton.astro';
+import mainPhoto from '../../assets/photos/main_photo.jpg';
+import nameImage from '../../assets/photos/my_name.png';
+
+const h = site.hero;
+---
+<section id="hero" class="relative">
+  <div class="mx-auto flex max-w-container flex-col gap-8 px-6 py-16 md:py-24 md:px-10 lg:flex-row lg:items-stretch lg:gap-16">
+    <div class="order-2 mx-auto w-full max-w-md lg:order-none lg:mx-0 lg:w-[440px] lg:max-w-none lg:shrink-0">
+      <Image
+        src={mainPhoto}
+        alt="Дарья Кузнецова"
+        widths={[480, 720, 960, 1200]}
+        sizes="(min-width: 1024px) 440px, (min-width: 640px) 480px, 100vw"
+        class="h-auto w-full rounded-3xl shadow-lg"
+      />
+    </div>
+
+    <div class="contents lg:flex lg:flex-1 lg:flex-col lg:items-center lg:justify-between lg:gap-6 lg:text-center">
+      <h1 class="order-1 w-full lg:order-none">
+        <span class="sr-only">Меня зовут Дарья Кузнецова</span>
+        <Image
+          src={nameImage}
+          alt="Меня зовут Дарья Кузнецова"
+          widths={[480, 720, 960, 1280]}
+          sizes="(min-width: 1024px) 60vw, 100vw"
+          class="mx-auto h-auto w-full lg:max-h-[380px] lg:w-auto"
+        />
+      </h1>
+
+      <p class="order-3 w-full text-center font-sans text-lg leading-relaxed text-graphite/90 md:text-xl lg:order-none lg:my-auto lg:text-2xl">
+        {h.tagline}
+      </p>
+
+      <div class="order-4 w-full lg:order-none">
+        <PillButton href={h.cta.href} label={h.cta.label} class="w-full" />
+      </div>
+    </div>
+  </div>
+</section>

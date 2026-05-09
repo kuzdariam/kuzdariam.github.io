@@ -1,0 +1,89 @@
+---
+import ArrowLeft from '../icons/ArrowLeft.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+import Close from '../icons/Close.astro';
+
+interface Props {
+  images: { src: string; alt: string }[];
+}
+const { images } = Astro.props;
+const json = JSON.stringify(images);
+---
+<dialog
+  data-lightbox
+  class="m-0 h-screen max-h-screen w-screen max-w-none border-0 bg-graphite/90 p-0 text-milk backdrop:bg-graphite/90"
+>
+  <button
+    type="button"
+    data-lightbox-close
+    aria-label="Закрыть"
+    class="absolute right-6 top-6 z-10 text-milk"
+  >
+    <Close class="text-milk" />
+  </button>
+
+  <button
+    type="button"
+    data-lightbox-prev
+    aria-label="Предыдущий"
+    class="absolute left-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-graphite/40 p-3 text-milk hover:bg-graphite/60"
+  >
+    <ArrowLeft class="text-milk" />
+  </button>
+
+  <button
+    type="button"
+    data-lightbox-next
+    aria-label="Следующий"
+    class="absolute right-6 top-1/2 z-10 -translate-y-1/2 rounded-full bg-graphite/40 p-3 text-milk hover:bg-graphite/60"
+  >
+    <ArrowRight class="text-milk" />
+  </button>
+
+  <div class="flex h-full w-full items-center justify-center p-12">
+    <img data-lightbox-img alt="" class="max-h-full max-w-full object-contain" />
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ json }}>
+  const images = JSON.parse(json);
+  const dialog = document.querySelector('[data-lightbox]');
+  const img = document.querySelector('[data-lightbox-img]');
+  const closeBtn = document.querySelector('[data-lightbox-close]');
+  const prevBtn = document.querySelector('[data-lightbox-prev]');
+  const nextBtn = document.querySelector('[data-lightbox-next]');
+  let currentIndex = 0;
+
+  function render(i) {
+    currentIndex = (i + images.length) % images.length;
+    img.src = images[currentIndex].src;
+    img.alt = images[currentIndex].alt;
+  }
+
+  function open(i) {
+    render(i);
+    dialog.showModal();
+  }
+  function close() {
+    dialog.close();
+  }
+
+  document.querySelectorAll('[data-lightbox-open]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const idx = Number(el.getAttribute('data-lightbox-open'));
+      open(idx);
+    });
+  });
+
+  closeBtn?.addEventListener('click', close);
+  prevBtn?.addEventListener('click', () => render(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => render(currentIndex + 1));
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!dialog.open) return;
+    if (e.key === 'ArrowLeft') render(currentIndex - 1);
+    if (e.key === 'ArrowRight') render(currentIndex + 1);
+  });
+</script>

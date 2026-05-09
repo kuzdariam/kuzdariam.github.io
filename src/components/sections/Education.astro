@@ -1,0 +1,111 @@
+---
+import { site } from '../../content/site.ts';
+import Lightbox from '../ui/Lightbox.astro';
+import ArrowLeft from '../icons/ArrowLeft.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+import WavyUnderline from '../icons/WavyUnderline.astro';
+
+const e = site.education;
+
+const highlight = 'высшее психологическое образование';
+const idx = e.subline.indexOf(highlight);
+const sublineBefore = e.subline.slice(0, idx);
+const sublineAfter = e.subline.slice(idx + highlight.length);
+---
+<section id="education" class="py-20 md:py-28">
+  <div class="mx-auto max-w-container px-6 md:px-10">
+    <h2 class="text-center font-display text-3xl font-bold uppercase text-graphite md:text-4xl lg:text-5xl">
+      {e.headline}
+    </h2>
+    <p class="mx-auto mt-6 max-w-3xl text-center font-sans text-2xl leading-relaxed text-graphite">
+      {sublineBefore}<strong class="font-bold"><WavyUnderline word={highlight} /></strong>{sublineAfter}
+    </p>
+
+    <div class="relative mt-12">
+      <button
+        type="button"
+        data-edu-prev
+        aria-label="Предыдущий"
+        class="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-xl bg-sand p-3 text-graphite hover:bg-sand/80"
+      >
+        <ArrowLeft class="text-graphite" />
+      </button>
+      <button
+        type="button"
+        data-edu-next
+        aria-label="Следующий"
+        class="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-xl bg-sand p-3 text-graphite hover:bg-sand/80"
+      >
+        <ArrowRight class="text-graphite" />
+      </button>
+
+      <div
+        data-edu-track
+        class="flex snap-x snap-mandatory gap-6 overflow-x-auto px-12 pb-4 scroll-smooth"
+        style="scrollbar-width: none;"
+      >
+        {e.certificates.map((cert, i) => (
+          <button
+            type="button"
+            data-lightbox-open={i}
+            class="snap-center shrink-0 w-[60vw] max-w-[280px] md:w-auto md:max-w-none cursor-zoom-in transition-transform"
+          >
+            <img
+              src={cert.src}
+              alt={cert.alt}
+              class="h-[280px] w-auto rounded-2xl object-cover shadow-md md:h-[360px] lg:h-[480px]"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <Lightbox images={e.certificates} />
+</section>
+
+<style>
+  [data-edu-track]::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-edu-track]');
+  const prev = document.querySelector<HTMLButtonElement>('[data-edu-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-edu-next]');
+
+  function step() {
+    if (!track) return 0;
+    const card = track.querySelector('button');
+    if (!card) return 0;
+    const cardWidth = (card as HTMLElement).offsetWidth;
+    const gap = 24;
+    return cardWidth + gap;
+  }
+
+  prev?.addEventListener('click', () => {
+    track?.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  next?.addEventListener('click', () => {
+    track?.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+
+  // drag-to-scroll на десктопе
+  if (track) {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+    track.addEventListener('mouseleave', () => { isDown = false; });
+    track.addEventListener('mouseup', () => { isDown = false; });
+    track.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      track.scrollLeft = scrollLeft - (x - startX);
+    });
+  }
+</script>

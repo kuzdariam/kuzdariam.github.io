@@ -1,0 +1,85 @@
+---
+import { site } from '../../content/site.ts';
+import WavyUnderline from '../icons/WavyUnderline.astro';
+import ArrowLeft from '../icons/ArrowLeft.astro';
+import ArrowRight from '../icons/ArrowRight.astro';
+
+const r = site.reviews;
+
+const word = r.highlightedWord;
+const idx = r.intro.lastIndexOf(word);
+const introBefore = r.intro.slice(0, idx);
+const introAfter = r.intro.slice(idx + word.length);
+---
+<section id="reviews" class="py-20 md:py-28">
+  <div class="mx-auto max-w-container px-6 md:px-10">
+    <h2 class="text-center font-display text-3xl font-bold uppercase text-graphite md:text-4xl lg:text-5xl">
+      {r.headline}
+    </h2>
+
+    <p class="mx-auto mt-8 max-w-3xl text-center font-sans text-base leading-relaxed text-graphite md:text-lg">
+      {introBefore}<WavyUnderline word={word} />{introAfter}
+    </p>
+
+    <div class="mt-10 flex items-center justify-center gap-4">
+      <button
+        type="button"
+        data-rev-prev
+        aria-label="Предыдущий"
+        class="rounded-xl bg-lavender-light p-3 text-graphite hover:bg-lavender-light/80"
+      >
+        <ArrowLeft class="text-graphite" />
+      </button>
+      <button
+        type="button"
+        data-rev-next
+        aria-label="Следующий"
+        class="rounded-xl bg-lavender-light p-3 text-graphite hover:bg-lavender-light/80"
+      >
+        <ArrowRight class="text-graphite" />
+      </button>
+    </div>
+
+    <div
+      data-rev-track
+      class="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scroll-smooth"
+      style="scrollbar-width: none;"
+    >
+      {r.items.map((item) => (
+        <article
+          class="snap-start shrink-0 w-[85vw] max-w-[420px] rounded-2xl bg-lavender-light p-8"
+        >
+          <svg class="h-8 w-8 text-lavender" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+            <path d="M11 20H5l3-9h3l-2 9zm10 0h-6l3-9h3l-2 9z" transform="rotate(180 16 15.5)" />
+          </svg>
+          <h3 class="mt-4 font-display text-xl font-bold uppercase text-graphite md:text-2xl">
+            «{item.quote}»
+          </h3>
+          <p class="mt-6 font-sans text-base leading-relaxed text-graphite">{item.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-rev-track]::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-rev-track]');
+  const prev = document.querySelector<HTMLButtonElement>('[data-rev-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-rev-next]');
+
+  function step() {
+    if (!track) return 0;
+    const card = track.querySelector('article');
+    if (!card) return 0;
+    const cardWidth = (card as HTMLElement).offsetWidth;
+    const gap = 24;
+    return cardWidth + gap;
+  }
+
+  prev?.addEventListener('click', () => track?.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next?.addEventListener('click', () => track?.scrollBy({ left: step(), behavior: 'smooth' }));
+</script>

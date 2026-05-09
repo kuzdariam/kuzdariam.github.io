@@ -1,0 +1,105 @@
+---
+import { site } from '../../content/site.ts';
+import Burger from '../icons/Burger.astro';
+import Close from '../icons/Close.astro';
+
+const { items, cta, brand } = site.nav;
+---
+<nav
+  data-navbar
+  class="sticky top-0 z-50 bg-lavender text-[#4B3C46]"
+>
+  <div class="mx-auto flex max-w-container items-center justify-between px-6 py-4 md:px-10">
+    <a href="#top" class="font-display text-xl tracking-wide">{brand}</a>
+
+    <ul class="hidden items-center gap-8 md:flex">
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="text-sm uppercase tracking-wide hover:text-terracotta transition-colors"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href={cta.href}
+      class="hidden md:inline-flex items-center justify-center rounded-full bg-terracotta px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-terracotta/90 transition-colors"
+    >
+      {cta.label}
+    </a>
+
+    <button
+      type="button"
+      data-burger-toggle
+      aria-label="Открыть меню"
+      class="md:hidden"
+    >
+      <Burger class="text-[#4B3C46]" />
+    </button>
+  </div>
+
+  <div
+    data-burger-overlay
+    class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-8 bg-lavender md:hidden"
+  >
+    <button
+      type="button"
+      data-burger-close
+      aria-label="Закрыть меню"
+      class="absolute top-6 right-6"
+    >
+      <Close class="text-[#4B3C46]" />
+    </button>
+    <ul class="flex flex-col items-center gap-6">
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            data-burger-link
+            class="text-2xl font-display uppercase tracking-wide text-[#4B3C46]"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a
+      href={cta.href}
+      data-burger-link
+      class="rounded-full bg-terracotta px-8 py-3 text-base font-semibold uppercase tracking-wide text-white"
+    >
+      {cta.label}
+    </a>
+  </div>
+</nav>
+
+<script>
+  const overlay = document.querySelector<HTMLElement>('[data-burger-overlay]');
+  const toggle = document.querySelector<HTMLElement>('[data-burger-toggle]');
+  const closeBtn = document.querySelector<HTMLElement>('[data-burger-close]');
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-burger-link]');
+
+  function open() {
+    if (!overlay) return;
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    if (!overlay) return;
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  toggle?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  links.forEach((a) => a.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+</script>

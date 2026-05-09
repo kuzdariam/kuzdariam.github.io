@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Sparkle from '../components/icons/Sparkle.astro';
+import Leaf from '../components/icons/Leaf.astro';
+import Dots from '../components/icons/Dots.astro';
+import Moon from '../components/icons/Moon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+}
+
+const { title, description, lang = 'ru' } = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+    />
+
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
+  </head>
+  <body class="bg-beige text-graphite">
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 z-0">
+      <Sparkle class="absolute top-20 right-[8%] h-10 w-10 text-coral/50 md:h-14 md:w-14" />
+      <Sparkle class="absolute top-32 right-[22%] hidden h-5 w-5 text-lavender md:block" />
+      <Sparkle class="absolute bottom-24 left-[6%] h-8 w-8 text-lavender md:h-10 md:w-10" />
+      <Sparkle class="absolute bottom-40 right-[4%] hidden h-6 w-6 text-coral/40 md:block" />
+      <Dots class="absolute top-1/2 left-[3%] hidden w-24 -translate-y-1/2 text-olive-soft md:block" />
+      <Dots class="absolute right-[10%] bottom-12 w-20 text-lavender md:w-28" />
+      <Leaf class="absolute -bottom-2 left-[28%] hidden h-16 w-16 rotate-12 text-olive md:block" />
+      <Moon class="absolute top-20 left-[10%] hidden h-9 w-9 text-coral/40 md:block" />
+    </div>
+    <div class="relative z-10">
+      <slot />
+    </div>
+  </body>
+</html>

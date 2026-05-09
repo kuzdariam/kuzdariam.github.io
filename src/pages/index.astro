@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavBar from '../components/ui/NavBar.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Education from '../components/sections/Education.astro';
+import Topics from '../components/sections/Topics.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import Contacts from '../components/sections/Contacts.astro';
+import { site } from '../content/site.ts';
+---
+<BaseLayout title={site.meta.title} description={site.meta.description} lang={site.meta.lang}>
+  <div id="top">
+    <NavBar />
+    <main>
+      <Hero />
+      <About />
+      <Education />
+      <Topics />
+      <Pricing />
+      <Reviews />
+      <Contacts />
+    </main>
+  </div>
+</BaseLayout>

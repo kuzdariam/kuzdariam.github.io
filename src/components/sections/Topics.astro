@@ -1,0 +1,38 @@
+---
+import { site } from '../../content/site.ts';
+import WavyUnderline from '../icons/WavyUnderline.astro';
+
+const t = site.topics;
+
+const calloutTitle = t.callout.title;
+const word = t.callout.highlightedWord;
+const idx = calloutTitle.indexOf(word);
+const calloutBefore = calloutTitle.slice(0, idx);
+const calloutAfter = calloutTitle.slice(idx + word.length);
+---
+<section id="topics" class="py-20 md:py-28">
+  <div class="mx-auto max-w-container px-6 md:px-10">
+    <h2 class="text-center font-display text-3xl font-bold uppercase text-graphite md:text-4xl lg:text-5xl">
+      {t.headline}
+    </h2>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {t.items.map((item, i) => (
+        <article
+          class={`rounded-2xl p-8 ${i % 2 === 0 ? 'bg-sand' : 'bg-lavender'}`}
+        >
+          <p class="font-sans text-base leading-relaxed text-graphite md:text-lg">{item}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-12 rounded-3xl bg-sand p-8 md:p-12">
+      <h3 class="font-display text-2xl font-semibold text-graphite md:text-3xl">
+        {calloutBefore}<WavyUnderline word={word} />{calloutAfter}
+      </h3>
+      <p class="mt-4 font-sans text-base leading-relaxed text-graphite md:text-lg">
+        {t.callout.body}
+      </p>
+    </div>
+  </div>
+</section>
