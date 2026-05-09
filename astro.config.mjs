@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
-const SITE = process.env.SITE_URL ?? 'https://kuzdariam.github.io';
+const SITE = process.env.SITE_URL ?? 'https://dariakuz.com';
 const BASE = process.env.BASE_PATH ?? '/';
 
 export default defineConfig({
