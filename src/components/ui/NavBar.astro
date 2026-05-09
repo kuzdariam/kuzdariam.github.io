@@ -12,7 +12,7 @@ const { items, cta, brand } = site.nav;
   <div class="mx-auto flex max-w-container items-center justify-between px-6 py-4 md:px-10">
     <a href="#top" class="font-display text-xl tracking-wide">{brand}</a>
 
-    <ul class="hidden items-center gap-8 md:flex">
+    <ul class="hidden items-center gap-8 lg:flex">
       {items.map((item) => (
         <li>
           <a
@@ -27,7 +27,7 @@ const { items, cta, brand } = site.nav;
 
     <a
       href={cta.href}
-      class="hidden md:inline-flex items-center justify-center rounded-full bg-terracotta px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-terracotta/90 transition-colors"
+      class="hidden lg:inline-flex items-center justify-center rounded-full bg-terracotta px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white hover:bg-terracotta/90 transition-colors"
     >
       {cta.label}
     </a>
@@ -36,7 +36,7 @@ const { items, cta, brand } = site.nav;
       type="button"
       data-burger-toggle
       aria-label="Открыть меню"
-      class="md:hidden"
+      class="lg:hidden"
     >
       <Burger class="text-[#4B3C46]" />
     </button>
@@ -44,7 +44,7 @@ const { items, cta, brand } = site.nav;
 
   <div
     data-burger-overlay
-    class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-8 bg-lavender md:hidden"
+    class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-8 bg-lavender lg:hidden"
   >
     <button
       type="button"
