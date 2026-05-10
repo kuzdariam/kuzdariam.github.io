@@ -1,14 +1,5 @@
 ---
-interface Props { children?: any; word: string; }
+interface Props { word: string }
 const { word } = Astro.props;
 ---
-<span class="wavy-underline">{word}</span>
-
-<style>
-  .wavy-underline {
-    text-decoration: underline wavy #B35A4A;
-    text-decoration-thickness: 0.08em;
-    text-underline-offset: 0.18em;
-    text-decoration-skip-ink: none;
-  }
-</style>
+<span class="underline decoration-terracotta decoration-wavy decoration-[0.08em] underline-offset-[0.18em] [text-decoration-skip-ink:none]">{word}</span>

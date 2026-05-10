@@ -1,16 +1,13 @@
 ---
 import { site } from '../../content/site.ts';
+import { splitOnHighlight } from '../../content/utils.ts';
 import Lightbox from '../ui/Lightbox.astro';
 import ArrowLeft from '../icons/ArrowLeft.astro';
 import ArrowRight from '../icons/ArrowRight.astro';
 import WavyUnderline from '../ui/WavyUnderline.astro';
 
 const e = site.education;
-
-const highlight = 'высшее психологическое образование';
-const idx = e.subline.indexOf(highlight);
-const sublineBefore = e.subline.slice(0, idx);
-const sublineAfter = e.subline.slice(idx + highlight.length);
+const { before: sublineBefore, word, after: sublineAfter } = splitOnHighlight(e.subline, e.highlightedWord);
 ---
 <section id="education" class="py-20 md:py-28">
   <div class="mx-auto max-w-container px-6 md:px-10">
@@ -18,7 +15,7 @@ const sublineAfter = e.subline.slice(idx + highlight.length);
       {e.headline}
     </h2>
     <p class="mx-auto mt-6 max-w-3xl text-center font-sans text-2xl leading-relaxed text-graphite">
-      {sublineBefore}<strong class="font-bold"><WavyUnderline word={highlight} /></strong>{sublineAfter}
+      {sublineBefore}<strong class="font-bold"><WavyUnderline word={word} /></strong>{sublineAfter}
     </p>
 
     <div class="relative mt-12">

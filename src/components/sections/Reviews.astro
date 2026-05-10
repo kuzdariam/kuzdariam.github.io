@@ -1,15 +1,12 @@
 ---
 import { site } from '../../content/site.ts';
+import { splitOnHighlight } from '../../content/utils.ts';
 import WavyUnderline from '../ui/WavyUnderline.astro';
 import ArrowLeft from '../icons/ArrowLeft.astro';
 import ArrowRight from '../icons/ArrowRight.astro';
 
 const r = site.reviews;
-
-const word = r.highlightedWord;
-const idx = r.intro.lastIndexOf(word);
-const introBefore = r.intro.slice(0, idx);
-const introAfter = r.intro.slice(idx + word.length);
+const { before: introBefore, word, after: introAfter } = splitOnHighlight(r.intro, r.highlightedWord);
 ---
 <section id="reviews" class="py-20 md:py-28">
   <div class="mx-auto max-w-container px-6 md:px-10">
