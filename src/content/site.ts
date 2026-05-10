@@ -135,19 +135,17 @@ export const site = {
   },
 
   contacts: {
-    backgroundPhoto: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1600&q=80',
-    backgroundAlt: 'Дарья смеётся (плейсхолдер)',
     headline: 'Приглашаю вас к себе на консультацию',
     body:
       'Если вы задумываетесь о сессии, но сначала хотите задать интересующие вопросы или пообщаться лично, то свяжитесь со мной — я отвечу на ваши вопросы.',
     links: [
-      { label: 'WHATSAPP', href: 'https://wa.me/0000000000' },
-      { label: 'ПОЧТА', href: 'mailto:placeholder@example.com' },
+      { label: 'WHATSAPP', href: 'https://wa.me/message/PJM3GIRNXGB2N1' },
+      { label: 'TELEGRAM', href: 'https://t.me/daryasivan' },
+      { label: 'ПОЧТА', href: 'mailto:kdmindworks@gmail.com' },
     ] as NavItem[],
-    cta: { label: 'ЗАПИСАТЬСЯ', href: 'https://wa.me/0000000000' } as Cta,
     consentLink: { label: 'информированное согласие', href: '#' } as NavItem,
     footer: {
-      credit: 'Сайт сделал — placeholder',
+      credit: '© 2026 Дарья Кузнецова',
       backToTopLabel: 'наверх',
     },
   },
