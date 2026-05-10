@@ -4,23 +4,39 @@
 @import '@fontsource/playfair-display/600.css';
 @import '@fontsource/playfair-display/700.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-beige: #EAE4DE;
+  --color-graphite: #3A3D40;
+  --color-milk: #F6F4F2;
+  --color-sand: #D8CEC4;
+  --color-lavender: #B9AED4;
+  --color-lavender-light: #E6E0F2;
+  --color-olive: #8A9F94;
+  --color-olive-soft: #8F9B7A;
+  --color-coral: #C97A6B;
+  --color-terracotta: #B35A4A;
+
+  --font-display: "Playfair Display", serif;
+  --font-sans: Inter, system-ui, sans-serif;
+
+  --container-container: 1280px;
+}
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background: theme('colors.beige');
-    color: theme('colors.graphite');
+    background: var(--color-beige);
+    color: var(--color-graphite);
   }
   body {
-    font-family: theme('fontFamily.sans');
+    font-family: var(--font-sans);
     font-weight: 400;
     line-height: 1.5;
   }
   h1, h2, h3, h4 {
-    font-family: theme('fontFamily.display');
+    font-family: var(--font-display);
     line-height: 1.15;
   }
 }
