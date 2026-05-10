@@ -36,70 +36,77 @@ const { items, cta, brand } = site.nav;
       type="button"
       data-burger-toggle
       aria-label="Открыть меню"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
       class="lg:hidden"
     >
       <Burger class="text-[#4B3C46]" />
     </button>
   </div>
 
-  <div
-    data-burger-overlay
-    class="fixed inset-0 z-40 hidden flex-col items-center justify-center gap-8 bg-lavender lg:hidden"
+  <dialog
+    id="mobile-menu"
+    data-burger-dialog
+    aria-label="Главное меню"
+    class="m-0 h-screen max-h-screen w-screen max-w-none border-0 bg-lavender p-0 text-[#4B3C46] backdrop:bg-lavender lg:hidden"
   >
-    <button
-      type="button"
-      data-burger-close
-      aria-label="Закрыть меню"
-      class="absolute top-6 right-6"
-    >
-      <Close class="text-[#4B3C46]" />
-    </button>
-    <ul class="flex flex-col items-center gap-6">
-      {items.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            data-burger-link
-            class="text-2xl font-display uppercase tracking-wide text-[#4B3C46]"
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-    <a
-      href={cta.href}
-      data-burger-link
-      class="rounded-full bg-terracotta px-8 py-3 text-base font-semibold uppercase tracking-wide text-white"
-    >
-      {cta.label}
-    </a>
-  </div>
+    <div class="flex h-full w-full flex-col items-center justify-center gap-8">
+      <button
+        type="button"
+        data-burger-close
+        aria-label="Закрыть меню"
+        class="absolute top-6 right-6"
+      >
+        <Close class="text-[#4B3C46]" />
+      </button>
+      <ul class="flex flex-col items-center gap-6">
+        {items.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              data-burger-link
+              class="text-2xl font-display uppercase tracking-wide text-[#4B3C46]"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        href={cta.href}
+        data-burger-link
+        class="rounded-full bg-terracotta px-8 py-3 text-base font-semibold uppercase tracking-wide text-white"
+      >
+        {cta.label}
+      </a>
+    </div>
+  </dialog>
 </nav>
 
 <script>
-  const overlay = document.querySelector<HTMLElement>('[data-burger-overlay]');
-  const toggle = document.querySelector<HTMLElement>('[data-burger-toggle]');
+  const dialog = document.querySelector<HTMLDialogElement>('[data-burger-dialog]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-burger-toggle]');
   const closeBtn = document.querySelector<HTMLElement>('[data-burger-close]');
   const links = document.querySelectorAll<HTMLAnchorElement>('[data-burger-link]');
 
   function open() {
-    if (!overlay) return;
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
-    document.body.style.overflow = 'hidden';
+    if (!dialog) return;
+    dialog.showModal();
+    toggle?.setAttribute('aria-expanded', 'true');
+    toggle?.setAttribute('aria-label', 'Закрыть меню');
+    document.documentElement.style.overflow = 'hidden';
   }
   function close() {
-    if (!overlay) return;
-    overlay.classList.add('hidden');
-    overlay.classList.remove('flex');
-    document.body.style.overflow = '';
+    dialog?.close();
   }
 
   toggle?.addEventListener('click', open);
   closeBtn?.addEventListener('click', close);
   links.forEach((a) => a.addEventListener('click', close));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
+
+  dialog?.addEventListener('close', () => {
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', 'Открыть меню');
+    document.documentElement.style.overflow = '';
   });
 </script>
