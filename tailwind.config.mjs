@@ -11,7 +11,7 @@ export default {
         lavender: '#B9AED4',
         'lavender-light': '#E6E0F2',
         olive: '#8A9F94',
-        'olive-soft': '#BFCBB8',
+        'olive-soft': '#8F9B7A',
         coral: '#C97A6B',
         terracotta: '#B35A4A',
       },

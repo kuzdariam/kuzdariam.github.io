@@ -1,8 +1,16 @@
 ---
 import { site } from '../../content/site.ts';
-import WavyUnderline from '../icons/WavyUnderline.astro';
+import WavyUnderline from '../ui/WavyUnderline.astro';
+import Heart from '../icons/Heart.astro';
+import Moon from '../icons/Moon.astro';
+import Sparkle from '../icons/Sparkle.astro';
+import Leaf from '../icons/Leaf.astro';
+import Flower from '../icons/Flower.astro';
+import Waves from '../icons/Waves.astro';
 
 const t = site.topics;
+
+const icons = [Heart, Waves, Sparkle, Leaf, Moon, Flower];
 
 const calloutTitle = t.callout.title;
 const word = t.callout.highlightedWord;
@@ -17,13 +25,19 @@ const calloutAfter = calloutTitle.slice(idx + word.length);
     </h2>
 
     <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {t.items.map((item, i) => (
-        <article
-          class={`rounded-2xl p-8 ${i % 2 === 0 ? 'bg-sand' : 'bg-lavender'}`}
-        >
-          <p class="font-sans text-base leading-relaxed text-graphite md:text-lg">{item}</p>
-        </article>
-      ))}
+      {t.items.map((item, i) => {
+        const Icon = icons[i % icons.length];
+        return (
+          <article
+            class={`rounded-2xl p-8 ${i % 2 === 0 ? 'bg-olive-soft' : 'bg-lavender'}`}
+          >
+            <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-milk">
+              <Icon class="h-7 w-7 text-terracotta" />
+            </div>
+            <p class="font-sans text-base leading-relaxed text-graphite md:text-lg">{item}</p>
+          </article>
+        );
+      })}
     </div>
 
     <div class="mt-12 rounded-3xl bg-sand p-8 md:p-12">
