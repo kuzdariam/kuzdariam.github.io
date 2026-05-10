@@ -18,7 +18,8 @@ export const site = {
       { label: 'обо мне', href: '#about' },
       { label: 'образование', href: '#education' },
       { label: 'запросы', href: '#topics' },
-      { label: 'стоимость', href: '#pricing' },
+      //   TODO temporarily hide pricing section
+      // { label: 'стоимость', href: '#pricing' },
       { label: 'отзывы', href: '#reviews' },
     ] as NavItem[],
     cta: { label: 'ЗАПИСАТЬСЯ', href: '#contacts' } as Cta,
