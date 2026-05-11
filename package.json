@@ -17,8 +17,8 @@
   "dependencies": {
     "@fontsource/inter": "5.2.8",
     "@fontsource/playfair-display": "5.2.8",
-    "@panzoom/panzoom": "4.6.2",
-    "astro": "6.3.1"
+    "astro": "6.3.1",
+    "photoswipe": "5.4.4"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",

@@ -2,7 +2,6 @@
 import { Image, getImage } from 'astro:assets';
 import { site } from '../../content/site.ts';
 import { splitOnHighlight } from '../../content/utils.ts';
-import Lightbox from '../ui/Lightbox.astro';
 import WavyUnderline from '../ui/WavyUnderline.astro';
 import diploma from '../../assets/photos/education/diploma.png';
 import kpt from '../../assets/photos/education/kpt.png';
@@ -11,21 +10,25 @@ const e = site.education;
 const { before: sublineBefore, word, after: sublineAfter } = splitOnHighlight(e.subline, e.highlightedWord);
 
 const imageMap: Record<string, ImageMetadata> = { diploma, kpt };
-const certs = e.certificates.map((c) => {
-  const image = imageMap[c.key];
-  if (!image) throw new Error(`Missing image import for certificate key "${c.key}"`);
-  return { ...c, image };
-});
-
-const lightboxImages = await Promise.all(
-  certs.map(async (c) => {
+const certs = await Promise.all(
+  e.certificates.map(async (c) => {
+    const image = imageMap[c.key];
+    if (!image) throw new Error(`Missing image import for certificate key "${c.key}"`);
     const optimized = await getImage({
-      src: c.image,
+      src: image,
       width: 1600,
       format: 'webp',
       quality: 80,
     });
-    return { src: optimized.src, alt: c.alt };
+    return {
+      ...c,
+      image,
+      large: {
+        src: optimized.src,
+        width: optimized.attributes.width as number,
+        height: optimized.attributes.height as number,
+      },
+    };
   }),
 );
 ---
@@ -39,10 +42,13 @@ const lightboxImages = await Promise.all(
     </p>
 
     <div class="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-      {certs.map((cert, i) => (
-        <button
-          type="button"
-          data-lightbox-open={i}
+      {certs.map((cert) => (
+        <a
+          href={cert.large.src}
+          data-pswp-width={cert.large.width}
+          data-pswp-height={cert.large.height}
+          target="_blank"
+          rel="noopener noreferrer"
           class="group cursor-zoom-in overflow-hidden rounded-2xl shadow-md transition-transform hover:scale-[1.01]"
           aria-label={`Открыть: ${cert.alt}`}
         >
@@ -53,10 +59,25 @@ const lightboxImages = await Promise.all(
             sizes="(min-width: 768px) 50vw, 100vw"
             class="h-auto w-full"
           />
-        </button>
+        </a>
       ))}
     </div>
   </div>
-
-  <Lightbox images={lightboxImages as { src: string; alt: string }[]} />
 </section>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+  import 'photoswipe/style.css';
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: '#education',
+    children: 'a[data-pswp-width]',
+    pswpModule: () => import('photoswipe'),
+    closeTitle: 'Закрыть',
+    zoomTitle: 'Увеличить',
+    arrowPrevTitle: 'Предыдущий',
+    arrowNextTitle: 'Следующий',
+    errorMsg: 'Изображение не удалось загрузить',
+  });
+  lightbox.init();
+</script>
