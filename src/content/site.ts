@@ -1,7 +1,7 @@
 export type NavItem = { label: string; href: string };
 export type Cta = { label: string; href: string };
 export type AboutCard = { title: string; body: string };
-export type CertificateImg = { src: string; alt: string };
+export type Certificate = { key: string; alt: string };
 export type PricingCard = { format: string; duration: string; price: string };
 export type ReviewItem = { quote: string; body: string };
 
@@ -67,13 +67,9 @@ export const site = {
       'Я получила {highlight} и регулярно продолжаю обучаться',
     highlightedWord: 'высшее психологическое образование',
     certificates: [
-      { src: 'https://placehold.co/600x800/D8CEC4/4B3C46?text=Сертификат+1', alt: 'Сертификат 1 (плейсхолдер)' },
-      { src: 'https://placehold.co/600x800/E6E0F2/4B3C46?text=Сертификат+2', alt: 'Сертификат 2 (плейсхолдер)' },
-      { src: 'https://placehold.co/600x800/D8CEC4/4B3C46?text=Сертификат+3', alt: 'Сертификат 3 (плейсхолдер)' },
-      { src: 'https://placehold.co/600x800/E6E0F2/4B3C46?text=Сертификат+4', alt: 'Сертификат 4 (плейсхолдер)' },
-      { src: 'https://placehold.co/600x800/D8CEC4/4B3C46?text=Сертификат+5', alt: 'Сертификат 5 (плейсхолдер)' },
-      { src: 'https://placehold.co/600x800/E6E0F2/4B3C46?text=Сертификат+6', alt: 'Сертификат 6 (плейсхолдер)' },
-    ] as CertificateImg[],
+      { key: 'diploma', alt: 'Диплом об окончании Новосибирского Государственного Медицинского Университета по специальности клинической психологии' },
+      { key: 'kpt', alt: 'Сертификат повышения квалификации по когнитивно-поведенческой психотерапии — Московский институт психоанализа' },
+    ] as Certificate[],
   },
 
   topics: {
@@ -137,7 +133,7 @@ export const site = {
     ] as NavItem[],
     consentLink: { label: 'информированное согласие', href: '#' } as NavItem,
     footer: {
-      credit: '© 2026 Дарья Кузнецова',
+      creditName: 'Дарья Кузнецова',
       backToTopLabel: 'наверх',
     },
   },

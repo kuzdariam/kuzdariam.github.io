@@ -4,6 +4,7 @@ import { site } from '../../content/site.ts';
 import contactsBackground from '../../assets/photos/contacts_background.jpg';
 
 const c = site.contacts;
+const year = new Date().getFullYear();
 ---
 <section id="contacts" class="relative isolate overflow-hidden bg-graphite text-milk">
   <Image
@@ -30,16 +31,20 @@ const c = site.contacts;
     </div>
 
     <ul class="flex flex-col items-start gap-4 md:items-end">
-      {c.links.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class="font-display text-2xl font-bold uppercase tracking-wide text-milk transition-colors hover:text-terracotta md:text-3xl lg:text-4xl"
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {c.links.map((link) => {
+        const external = link.href.startsWith('http');
+        return (
+          <li>
+            <a
+              href={link.href}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              class="font-display text-2xl font-bold uppercase tracking-wide text-milk transition-colors hover:text-terracotta md:text-3xl lg:text-4xl"
+            >
+              {link.label}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </div>
 
@@ -47,7 +52,7 @@ const c = site.contacts;
 
 <footer class="bg-beige">
   <div class="mx-auto flex max-w-container flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-graphite md:flex-row md:px-10">
-    <span>{c.footer.credit}</span>
+    <span>© {year} {c.footer.creditName}</span>
     <a href="#top" class="hover:text-terracotta">↑ {c.footer.backToTopLabel}</a>
   </div>
 </footer>
