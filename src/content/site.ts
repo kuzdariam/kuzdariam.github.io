@@ -2,7 +2,16 @@ export type NavItem = { label: string; href: string };
 export type Cta = { label: string; href: string };
 export type AboutCard = { title: string; body: string };
 export type Certificate = { key: string; alt: string };
-export type PricingCard = { format: string; duration: string; price: string };
+export type PricingCard = {
+  title: string;
+  bodyTemplate: string;
+  bodyHighlightedWord?: string;
+  bodyBoldWord?: string;
+  bodyRest?: string;
+  priceTemplate: string;
+  priceBoldWord: string;
+  duration: string;
+};
 export type ReviewItem = { quote: string; body: string };
 
 export const site = {
@@ -18,8 +27,7 @@ export const site = {
       { label: 'обо мне', href: '#about' },
       { label: 'образование', href: '#education' },
       { label: 'запросы', href: '#topics' },
-      //   TODO temporarily hide pricing section
-      // { label: 'стоимость', href: '#pricing' },
+      { label: 'формат работы', href: '#pricing' },
       { label: 'отзывы', href: '#reviews' },
     ] as NavItem[],
     cta: { label: 'ЗАПИСАТЬСЯ', href: '#contacts' } as Cta,
@@ -34,9 +42,9 @@ export const site = {
 
   about: {
     headline:
-      'ПОМОГАЮ ПОНЯТЬ, ЧТО СТОИТ ЗА СОСТОЯНИЕМ И ПОЧЕМУ В ЖИЗНИ СКЛАДЫВАЕТСЯ ИМЕННО ТАК',
+      'В терапии мы разбираемся не только с текущими переживаниями, но и с причинами, которые к ним приводят',
     intro:
-      'Меня зовут Дарья. Я родом из небольшого города Новоалтайска и с 2022 года живу в Нидерландах. На личном опыте знаю, что такое эмиграция, кризисы с этим связанные. Для меня важно создать пространство, где можно безопасно разобраться в своих переживаниях и постепенно прийти к большей устойчивости.',
+      'Я родом из Новоалтайска и с 2022 года живу в Нидерландах. Личный опыт эмиграции помогает мне глубже понимать людей, столкнувшихся с переменами, адаптацией и кризисными периодами жизни. Для меня важно создать пространство, где можно безопасно разобраться в своих переживаниях и постепенно прийти к большей устойчивости.',
     cards: [
       {
         title: 'Моя цель',
@@ -91,10 +99,31 @@ export const site = {
   },
 
   pricing: {
-    headline: 'СТОИМОСТЬ',
+    headline: 'ФОРМАТ РАБОТЫ',
+    introTemplate: 'Работаю {highlight}',
+    introHighlightedWord: 'в двух форматах',
+    introBody:
+      'Вы можете выбрать тот формат, который больше подходит вашему ритму жизни и состоянию. При необходимости мы можем обсуждать и менять формат работы в процессе.',
     cards: [
-      { format: 'Онлайн', duration: '50 минут', price: '€00 (плейсхолдер)' },
-      { format: 'Очно в Нидерландах', duration: '50 минут', price: '€00 (плейсхолдер)' },
+      {
+        title: 'Очный приём в Амстердаме',
+        bodyTemplate:
+          'Я работаю очно в своём кабинете в Амстердаме по адресу: {bold}. Мой кабинет — мягкое нейтральное пространство, где можно замедлиться, почувствовать опору и сосредоточиться на себе.',
+        bodyBoldWord: 'Pieter van der Doesstraat 63, 1056 VD Amsterdam',
+        priceTemplate: 'Индивидуальная консультация — {bold}.',
+        priceBoldWord: '100€',
+        duration: 'Продолжительность встречи — 55 минут.',
+      },
+      {
+        title: 'Онлайн',
+        bodyTemplate: 'Я также работаю онлайн — сессии проходят в {highlight}.',
+        bodyHighlightedWord: 'Google Meet',
+        bodyRest:
+          'Этот формат подходит, если вам важно чувствовать себя в привычной обстановке, сохранить гибкость расписания или продолжать работу независимо от страны и города проживания. Онлайн-работа остаётся таким же внимательным и профессиональным форматом, как и очная.',
+        priceTemplate: 'Индивидуальная консультация — {bold}.',
+        priceBoldWord: '90€',
+        duration: 'Продолжительность встречи — 55 минут.',
+      },
     ] as PricingCard[],
   },
 
@@ -131,7 +160,6 @@ export const site = {
       { label: 'TELEGRAM', href: 'https://t.me/daryasivan' },
       { label: 'ПОЧТА', href: 'mailto:kdmindworks@gmail.com' },
     ] as NavItem[],
-    consentLink: { label: 'информированное согласие', href: '#' } as NavItem,
     footer: {
       creditName: 'Дарья Кузнецова',
       backToTopLabel: 'наверх',

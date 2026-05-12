@@ -18,25 +18,6 @@ const { before: introBefore, word, after: introAfter } = splitOnHighlight(r.intr
       {introBefore}<WavyUnderline word={word} />{introAfter}
     </p>
 
-    <div class="mt-10 flex items-center justify-center gap-4">
-      <button
-        type="button"
-        data-rev-prev
-        aria-label="Предыдущий"
-        class="rounded-xl bg-lavender-light p-3 text-graphite hover:bg-lavender-light/80"
-      >
-        <ArrowLeft class="text-graphite" />
-      </button>
-      <button
-        type="button"
-        data-rev-next
-        aria-label="Следующий"
-        class="rounded-xl bg-lavender-light p-3 text-graphite hover:bg-lavender-light/80"
-      >
-        <ArrowRight class="text-graphite" />
-      </button>
-    </div>
-
     <div
       data-rev-track
       class="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4 scroll-smooth"
@@ -55,6 +36,25 @@ const { before: introBefore, word, after: introAfter } = splitOnHighlight(r.intr
           <p class="mt-6 font-sans text-base leading-relaxed text-graphite">{item.body}</p>
         </article>
       ))}
+    </div>
+
+    <div class="mt-10 flex items-center justify-center gap-4">
+      <button
+        type="button"
+        data-rev-prev
+        aria-label="Предыдущий"
+        class="rounded-xl bg-lavender-light p-3 text-graphite hover:bg-lavender-light/80"
+      >
+        <ArrowLeft class="text-graphite" />
+      </button>
+      <button
+        type="button"
+        data-rev-next
+        aria-label="Следующий"
+        class="rounded-xl bg-lavender-light p-3 text-graphite hover:bg-lavender-light/80"
+      >
+        <ArrowRight class="text-graphite" />
+      </button>
     </div>
   </div>
 </section>
