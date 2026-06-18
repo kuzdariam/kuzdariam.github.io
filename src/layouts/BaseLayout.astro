@@ -31,7 +31,7 @@ const jsonLd = {
       '@id': `${siteOrigin}#person`,
       name: 'Дарья Кузнецова',
       alternateName: 'Daria Kuznetsova',
-      jobTitle: 'Психолог',
+      jobTitle: 'Клинический психолог',
       url: siteOrigin,
       knowsLanguage: ['ru'],
       ...(emailLink && { email: emailLink.href.replace('mailto:', '') }),
@@ -44,11 +44,19 @@ const jsonLd = {
       name: siteName,
       url: siteOrigin,
       description,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.address.streetAddress,
+        postalCode: site.address.postalCode,
+        addressLocality: site.address.addressLocality,
+        addressCountry: site.address.addressCountry,
+      },
       areaServed: [
         { '@type': 'City', name: 'Amsterdam' },
         { '@type': 'Country', name: 'Netherlands' },
       ],
       availableLanguage: ['ru'],
+      priceRange: '90€–100€',
       provider: { '@id': `${siteOrigin}#person` },
     },
     {

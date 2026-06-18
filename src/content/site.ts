@@ -98,6 +98,13 @@ export const site = {
     },
   },
 
+  address: {
+    streetAddress: 'Pieter van der Doesstraat 63',
+    postalCode: '1056 VD',
+    addressLocality: 'Amsterdam',
+    addressCountry: 'NL',
+  },
+
   pricing: {
     headline: 'ФОРМАТ РАБОТЫ',
     introTemplate: 'Работаю {highlight}',
